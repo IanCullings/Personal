@@ -118,9 +118,16 @@ Image with Height and Width Adjusted:
 
 <!--- Fill you answer here. --->
 
+Using a URL:
 
+![Kipper_Dog](https://github.com/icullings/Personal/blob/master/Images/KipperDog.jpg?raw=true)
 
+Using Relative Path:
 
+![CornellSeal](/Images/KipperDog.jpg)
+
+<img
+src="https://github.com/icullings/Personal/blob/master/Images/KipperDog.jpg?raw=true" height=100 width=100>
 
 ## Links
 You can also link text to a webpage. For example, I've inserted a link [here](http://aguaclara.cee.cornell.edu) to the AguaClara website.
