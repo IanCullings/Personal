@@ -108,7 +108,7 @@ Using a URL:
 ![CornellSeal](https://github.com/AguaClara/aguaclara_tutorial/blob/master/Images/Cornell_University_seal.svg.png?raw=true)
 
 Using a Relative File Path:
-![CornellSeal](/Images/Cornell_University_seal.svg.png)
+![CornellSeal](/Images/Cornell_University_seal.svg)
 
 Image with Height and Width Adjusted:
 
@@ -124,7 +124,7 @@ Using a URL:
 
 Using Relative Path:
 
-![CornellSeal](/Images/KipperDog.jpg)
+![KipperDog](/Images/KipperDog.jpg)
 
 <img
 src="https://github.com/icullings/Personal/blob/master/Images/KipperDog.jpg?raw=true" height=100 width=100>
@@ -137,7 +137,7 @@ To insert a link, all you have to do is enclose your linked text in `[]` followe
 1. Below, write a sentence describing your major, and insert a link to your major's department website.
 
 <!--- Fill you answer here. --->
-
+Environmental Engineering focuses on using engineering practices to solve environmental problems, including protection and remediation of soil, water, and air resources.  More information is available [here](https://bee.cals.cornell.edu/undergraduate/environmental-engineering-program)
 ## Tables
 Tables in Markdown are slightly harder, but there's an automatic function that allows to you make one easily. When working in a `.md` file, all you have to do is type `table` and hit enter. It will initialize a 2 by 2 table, but you can easily increase the width by going to the last column and hitting `Tab` or it's height by clicking in any cell and hitting `Enter`. Notice in the example how the text below the header is justified left, center, and right. This is due to the line below the header. A line with a colon on the far left of the dashes only indicates left justified, colons on both sides of the dashes indicates centered, and a colon on the far right of the dashes indicates right justified.
 
@@ -168,8 +168,11 @@ When making tables, it's not important that the lines match up. For example, the
 
 <!--- Fill you answer here. --->
 
-
-
+| Fave animals | Fave foods | Fave books | Fave Spots on campus |
+|:------------ |:---------- | ---------- | -------------------- |
+| Jellyfish    | Macaroni and Cheese   | The Three Body Problem             | Hollister Basement          |
+| Whales   |   Hummus         | Surely You're Joking Mr. Feynman  | Snee Hall Reading Room             |
+| Cuttlefish | Bagels | The Rider | Uris Cocktail Lounge |
 ## Code and Syntax Highlighting
 Notice how throughout this document there have been computer and programming related words formatted to look more "computery". That's because I've used syntax highlighting.
 
@@ -186,11 +189,14 @@ For larger code blocks where you report multiple lines of code, you always start
 1. Below, write a Python print function with a different string using syntax highlighting:
 
 <!--- Fill you answer here. --->
+`print('Hello Grader')`
 
 2. Now write a block of Python code for that same print statement:
 
 <!--- Fill you answer here. --->
-
+```python
+print('Hello Grader')
+```
 
 
 ## LaTeX Equations
@@ -201,7 +207,7 @@ $$ Re_D = \frac{uD}{\nu} $$
 1. Try it on your own! Write your favorite equation using LaTeX source code and toggle the LaTeX preview to see it formatted:
 
 <!--- Fill you answer here. --->
-
+$$ e^{i\pi} + 1 = 0 $$
 
 # Using Python and Running it With Hydrogen in Markdown
 
@@ -237,33 +243,59 @@ These questions are meant to test what you've learned from the Python Basics tut
 1. Write a conditional statement with 3 conditions: when x is 10, when x is 1, and when x is anything other than 1 or 10. For each condition, have your code print what the value is or isn't.
 
 <!--- Fill you answer here. --->
-
-
-
-
+```python
+if z == 1:
+  print('z is 1')
+elif z == 10:
+  print('z is 10')
+else:
+  print('z is neither 1 nor 10')
+```
 2. Write a `for` loop that takes a variable with an initial value of 0, and adds the current index to the previous value of that variable (i.e. you variable should grow in size every iteration). Perform the iteration 20 times, and have the final value be printed at the end.
 
 <!--- Fill you answer here. --->
 
+```python
+x = 0
+for j in range(20):
+  x = x + j
 
-
-
-
-
-
-
+print('x is: ', x)
+```
 
 3. Using the NumPy package, calculate the value of sin(4), and use the sigfig function from the utility module in aide_design to get your answer to 3 sig-figs. *(Hint: You will need to import these packages. Remember how to do that?)*
 
 <!--- Fill you answer here. --->
+```python
+from aide_design.play import*
+import numpy as np
+u.default_format = '.3f'
+y = np.sin(4) * u.dimensionless
+print(y)
 
+```
 
 
 4. Create a `list` of length 5, and verify the length of your list. Once you've done that, turn your `list` into an `array` and apply units of meters to it. After that, create a 5x5 `array`, extract the middle row and middle column. Verify the size of your 2D `array` and apply units of liters to it.
 
 <!--- Fill you answer here. --->
 
+```python
+import numpy as np
+Mylist = [1, 2, 3, 4, 5]
+l = len(Mylist)
+print(l)
+myArray = np.array(Mylist) * u.m
 
+Mynewarray = np.array([[1, 2, 3, 4, 5], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5]])
+midr = Mynewarray[2,:]
+midc = Mynewarray[:,2]
+
+s = np.size(Mynewarray)
+print(s)
+Mynewarray = Mynewarray * u.L
+
+```
 
 
 
@@ -280,17 +312,43 @@ These questions are meant to test what you've learned from the Python Basics tut
 $$ D = \frac{k_BT}{6\pi\eta r} $$
 
 ```python
-from scipy.constants import Boltzmann as kB_sc # I've imported the unitless value for kB from SciPy
 
+from scipy.constants import Boltzmann as kB_sc # I've imported the unitless value for kB from SciPy
 kB = kB_sc * u.joule / u.kelvin # I've given kB units for you in J/K; you can use the kB variable to give you Boltzmann's constant with units
 
 # Write your code here
 
+def solve_SE(temp, viscosity, radius):
+  T = temp*u.kelvin
+  h = viscosity* u.kg / (u.m * u.s)
+  r = radius * u.m
+  D = ((kB*T)/(6*np.pi*h*r)).to_base_units()
+  print(h)
+  return D
+
+# Check
+disp = solve_SE(250, 15, 0.5)
+print(disp)
 ```
 
 6. You have a pipe with a radius of 0.2 m with water flowing in it at 2 m<sup>3</sup>/s. You want to see how the Reynolds Number changes as viscosity changes due to a change in temperature from 0 to 200<sup>o</sup>C. Create a plot of Reynolds Number against Temperature in Kelvin to show a relationship. Make sure your plot has a title, labeled axes, and axes grid. You can use functions from `physchem` like `pc.re_pipe` and `pc.viscosity_kinematic`. *(Hint: Make an array of temperatures to input into the `pc.viscosity_kinematic` function)*. Make sure to save your plot to your images folder in your personal repository, and display it below using `plt.show()` and an image insertion using a relative file path to the image.
 
 <!--- Fill you answer here. --->
+```python
+from aide_design.play import*
+
+tempArray = (np.arange(0, 200, 1)) * u.degC
+r = 0.2 * u.m
+Q = 2 * (u.m**3 / u.s)
+Varray = pc.viscosity_kinematic(tempArray)
+Rearray = pc.re_pipe(Q, r, Varray)
+
+plt.plot(tempArray.to(u.degK), Rearray)
+plt.xlabel('Temperature (K)')
+plt.ylabel('Reynolds Number')
+plt.title('Reynolds Number vs. Temperature')
+plt.show()
+```
 
 # Teletype Basics
 In this section you and your team can practice using Teletype together.
@@ -299,7 +357,11 @@ In this section you and your team can practice using Teletype together.
 
 <!--- Fill you answer here. --->
 
+Hi Ian you got this!  --  Zac
 
+Ian, glad to be working with you. You rock! --Jennifer
+
+Ian, you're doing awesome!  -- Ananya
 
 
 2. Have you other team members create a portal for you to join. In their Markdown file, write them something encouraging, and sign your name.
